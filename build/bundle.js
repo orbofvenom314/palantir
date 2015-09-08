@@ -525,7 +525,7 @@ webpackJsonp([0],{
 				return _react2['default'].createElement(
 					'div',
 					null,
-					'LOTR Deck Builder!?'
+					'LOTR Deck Builder'
 				);
 			}
 		}]);
