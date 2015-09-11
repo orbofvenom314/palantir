@@ -19,7 +19,7 @@ module.exports = function(options) {
   return {
     target: 'web',
     entry: {
-      app: ['./app/main.jsx', 'webpack/hot/only-dev-server'],
+      app: options.NODE_ENV === 'development' ? ['./app/main.jsx', 'webpack/hot/only-dev-server'] : ['./app/main.jsx'],
       vendors: ['react', 'react-router', 'lodash'],
     },
     // resolve: {
