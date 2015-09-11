@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var gulp = require('gulp');
+var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
 var preprocess = require('gulp-preprocess');
 var webpack = require('webpack');
@@ -17,9 +18,19 @@ gulp.task('webpack', function(done) {
 });
 
 gulp.task('html', function(done) {
+  var env = process.env.NODE_ENV || 'development';
+
 	gulp.src('./app/index.html')
-		.pipe(preprocess({ NODE_ENV: process.env || 'development', debug: true }))
+		.pipe(preprocess({ NODE_ENV: env, debug: true }))
 		.pipe(gulp.dest('./'));
+
+  if(env !== 'development') {
+    //in non-dev envs (gh-pages), output other pages
+    gulp.src('./app/index.html')
+      .pipe(preprocess({ NODE_ENV: env, debug: true }))
+      .pipe(rename('palantir.html'))
+      .pipe(gulp.dest('./'));
+  }
 });
 
 gulp.task('start-server', function(done) {
